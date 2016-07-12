@@ -4,9 +4,22 @@
 
 	newQuoteService.getQuote(function (res) {
 		$('#quote').append(`<p>${res.quote}</p>`);
-		$('#quote').hover(`<p>${res.quote}</p> <br> <p>${res.author}</p> `)
+
+		$('#quote').hover(
+			function () {
+				$(this).append($(`<h4> ${res.author}</h4>`));
+			}, function () {
+				$('#quote h4').hide('slideout');
+			}
+			
+
+		);
+
 
 	})
+
+
+
 
 
 

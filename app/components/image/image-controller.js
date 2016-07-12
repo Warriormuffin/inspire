@@ -4,7 +4,7 @@
 	
 	newImageService.getImage(function(res){
 		$('#body').css({
-			background:  'url('+res.large_url + ')',
+			background:  'url('+ "https://unsplash.it/1920/1080?random" + ')',
 			color: 'black',
 			'background-size': 'cover'
 		});

@@ -1,36 +1,49 @@
-(function () {
+(function(){
 	// new up the TodoService that has already been configured for your use
 	// There are two methods getTodos returns and array
 	// saveTodos accepts an array and stores it to your local storage
-
+	
 	var ts = new TodoService()
-	var todos = ts.getTodos()
-	var todosElem = $('#todos')
+	var todos = ts.getTodos();
 
-	$('form').on('submit', function (e) {
-		e.preventDefault();
+	$('#todo-form').on('submit', function(event){
+		event.preventDefault();
 		var form = this;
-		var value = form.newInput.value;
+		var task = form.task.value
+		
 
-		todos.push(value);
-
+		todos.push(task);
 		ts.saveTodos(todos)
 		update();
 	})
+			$(`#todo-list`).on('click', 'li', function(event){
+				var task = $(event.target).text()
+				removeTaskByName(task);
+				ts.saveTodos(todos)
+				update()
+				
+			})
 
-	
 
-	var foo = document.getElementById('results');
-    foo.innerHTML = 'Showing ' + todos.length + ' Things on List';
-
-
-	function update() {
-		todosElem.empty();
-		for (var i = 0; i < todos.length; i++) {
-			var todo = todos[i];
-			todosElem.append(`<div>${todo}<div>`)
+	function removeTaskByName(name){
+		for(var i = 0; i < todos.length; i++){
+			var currentTask = todos[i].toLowerCase();
+			if(currentTask == name.toLowerCase()){
+				return	todos.splice(i, 1)
+		
+			}
 		}
 	}
-	update();
+	
+	function update(){
+		$(`#todo-list`).empty()
+		for(var i = 0; i < todos.length; i++){
+			var currentTask = todos[i];
 
-} ())
+			$('#todo-list').append(`<li>${currentTask.toUpperCase()}</li>`)
+		}
+	}
+
+	update()
+	
+}())
